@@ -1,2 +1,0 @@
-The current date is: 24/09/2024 
-Enter the new date: (dd-mm-yy) 
