@@ -8,3 +8,14 @@ The purpose of the assessment is for you to demonstrate ability in the following
     Compare commonly available software infrastructures and architectures.
 
     Select appropriate infrastructure for a given computational task.
+
+**NOTES TAKEN DURING COMPLETION OF EACH TASK**
+
+The below commands refer to terminal commands. Bash and cmder were used depending on what OS I was using, Bash for linux and cmder for windows.
+
+Task 1: Create Directory Structure - `mkdir` used to create directories with `cd` & `ls` used to navigate, was already familiar with these commands.
+
+Task 2: Timestamps - Navigated through repo directories again with `cd` & `ls`. Unfamiliar with `date` command but followed Ian's github instructions to complete the task. The command entered ten times was `date >> now.txt`. This instruction fetches current date/time and appends it onto the file `now.txt`, if `now.txt` doesn't exist `date >> now.txt` creates it. The `more` command was used to check the content of `now.txt` in the terminal window. I briefly checked online to see if there was a way to execute `date >> now.txt` n number of times but couldn't see one.
+
+Task 3: Formatting Timestamps - I started this task by reading through `man date` but couldn't initially figure out exactly how to structure the formatting part of the command. By reading the outputs I later realised I was including far to many **Interpreted sequences**. Instead of including `%Y` for year I was including `%Y%Y%Y%Y`... After some trial and error with removing most of the Interpreted sequences the command `date +"%Y%m%d_%H%M%S" >> formatted.txt` eventually returned the desired format, created `formatted.txt`, and appended the new format to the txt file.
+
