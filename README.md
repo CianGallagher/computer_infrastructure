@@ -19,3 +19,5 @@ Task 2: Timestamps - Navigated through repo directories again with `cd` & `ls`. 
 
 Task 3: Formatting Timestamps - I started this task by reading through `man date` but couldn't initially figure out exactly how to structure the formatting part of the command. By reading the outputs I later realised I was including far to many **Interpreted sequences**. Instead of including `%Y` for year I was including `%Y%Y%Y%Y`... After some trial and error with removing most of the Interpreted sequences the command `date +"%Y%m%d_%H%M%S" >> formatted.txt` eventually returned the desired format, created `formatted.txt`, and appended the new format to the txt file.
 
+Task 4: Create Timestamped Files - Initial attempts either produced a command substitution error or several date related directories, digging deeper on why exactly these directories are created from this command `touch `date` +"%Y%m%d_%H%M%S"`.
+
