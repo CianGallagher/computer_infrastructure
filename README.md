@@ -25,6 +25,6 @@ Task 5: Download Today's Weather Data - https://phoenixnap.com/kb/wget-command-w
 
 Task 6: Timestamp the Data - This task might require a command joining wget and the $ operator I learned about for task 4. Something like this would be my estimation `wget -O $(date +"%Y%m%d_%H%M%S").json https://prodapi.metweb.ie/observations/athenry/today`. Worked first try, happy days. File looks good, naming looks correct, lets move on.
 
-Task 7: Write the Script
+Task 7: Write the Script - Likely need to read up on shell scripting, completely unfamiliar but I'll have a play around first to see what I can come up with. https://www.freecodecamp.org/news/shell-scripting-crash-course-how-to-write-bash-scripts-in-linux/ & https://cloudxlab.com/assessment/displayslide/63/writing-first-shell-script are good resources.
 
 
