@@ -9,7 +9,7 @@ The purpose of the assessment is for you to demonstrate ability in the following
 
     Select appropriate infrastructure for a given computational task.
 
-**NOTES TAKEN DURING COMPLETION OF EACH TASK**
+**NOTES TAKEN DURING EACH TASK**
 
 The below commands refer to terminal commands. Bash and cmder were used depending on what OS I was using, Bash for linux and cmder for windows.
 
