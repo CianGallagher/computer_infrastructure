@@ -18,4 +18,6 @@ This repository includes two sections: **Tasks** and **Project**. The **Tasks** 
 
 The **Tasks** section provides the groundwork for more advanced project integration.
 
+## Automation section Notes
 
+weather.sh filepath amended to run locally as the original filepath was initially run in codespaces. [Cron Tutorial Video](https://www.youtube.com/watch?v=v952m13p-b4&t=51s) was a helpful resource for both explaining cron and also initialising your first cron job. Cronjobs are accessible through what is called the [crontab](https://www.techtarget.com/searchdatacenter/definition/crontab) which, for my current purposes is simply a table(tab) of scheduled commands.`crontab -l` lists all current cronjobs on the machine and `crontab -e` enables the editing of said crontab. I got the cronjob working using the `29 15 * * * /home/gally/Documents/repos/computer_infrastructure/weather.sh` as an initial test, the time on the above job was just for testing purposes. 
