@@ -49,3 +49,11 @@ Error: Process completed with exit code 128.`
 This error makes a lot of sense, I took for granted that add,commit,push would work as normal because when I do it locally github already knows who I am due to me configuring previously. The error then offers me a solution which would probably work for me but I'll have to find a different approach if this repo is to be useful for others, maybe there's a generic identity I can use when running 
 `git config --global user.email "you@example.com"
 git config --global user.name "Your Name"`
+git identity configured, `git add .` & `git commit -m` are written into the yml file push to repo and passed the checks after manually running the github action. Tried to implement a git push but got the following error message :
+
+`Run git push
+remote: Permission to CianGallagher/computer_infrastructure.git denied to github-actions[bot].
+fatal: unable to access 'https://github.com/CianGallagher/computer_infrastructure/': The requested URL returned error: 403
+Error: Process completed with exit code 128.`
+
+This looks like a permission issue, maybe I need to provide my password or something.Read into this, github-actions[bot] in particular.
