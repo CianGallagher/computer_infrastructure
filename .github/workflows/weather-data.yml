@@ -26,3 +26,8 @@ jobs:
   
         - name: Commit file
           run: git commit -m "Automated file commit $(date +"%Y%m%d_%H%M%S")"
+
+        - name: Push file
+          run: git push
+        
+        
