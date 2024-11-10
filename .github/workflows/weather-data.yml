@@ -11,7 +11,14 @@ jobs:
   
       steps:
         - name: Checkout repository
-          uses: actions/checkout@v2
+          uses: actions/checkout@v3
   
         - name: Run weather.sh script
           run: ./weather.sh
+
+        - name: Add file
+          run: git add .
+  
+        - name: Commit file
+          run:
+            git commit -m "Automated file commit $(date +"%Y%m%d_%H%M%S")"
