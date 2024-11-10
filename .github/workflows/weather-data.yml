@@ -16,9 +16,13 @@ jobs:
         - name: Run weather.sh script
           run: ./weather.sh
 
+        - name: Git Identity
+          run:
+              git config --global user.email "ciangall1@gmail.com"
+              git config --global user.name "CianGallagher"
+  
         - name: Add file
           run: git add .
   
         - name: Commit file
-          run:
-            git commit -m "Automated file commit $(date +"%Y%m%d_%H%M%S")"
+          run: git commit -m "Automated file commit $(date +"%Y%m%d_%H%M%S")"
