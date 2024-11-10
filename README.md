@@ -28,3 +28,24 @@ weather.sh filepath amended to run locally as the original filepath was initiall
 Implemented some changes using the resources above and got a lovely green tick on the task! unfortunately I included both checkout in the yml file to clone the REPO and amended the script in the same commit so not quite sure yet which was the issue if not both.
 
 6. Need to edit the workflow to enable the commit and push of new weather JSONs back to the Repo. This will be written into the yaml file most likely. Scouring the [GitHub Actions documentation](https://docs.github.com/en/actions) but still not sure where to even start implementing `Commit and Push Changes Back to the Repository Finally, configure the workflow to commit the new weather data and push those changes back to your repository.`
+Added `git add .` and `git commit -m` to yml file. After pushing this change I ran the github action and got an error as follows:
+
+`Run git commit -m "Automated file commit $(date +"%Y%m%d_%H%M%S")"
+Author identity unknown
+
+*** Please tell me who you are.
+
+Run
+
+  git config --global user.email "you@example.com"
+  git config --global user.name "Your Name"
+
+to set your account's default identity.
+Omit --global to set the identity only in this repository.
+
+fatal: empty ident name (for <runner@fv-az532-828.yhfsaq54z0vebhuvdla3z0z0vh.cx.internal.cloudapp.net>) not allowed
+Error: Process completed with exit code 128.`
+
+This error makes a lot of sense, I took for granted that add,commit,push would work as normal because when I do it locally github already knows who I am due to me configuring previously. The error then offers me a solution which would probably work for me but I'll have to find a different approach if this repo is to be useful for others, maybe there's a generic identity I can use when running 
+`git config --global user.email "you@example.com"
+git config --global user.name "Your Name"`
