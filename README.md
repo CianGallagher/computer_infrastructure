@@ -56,4 +56,10 @@ remote: Permission to CianGallagher/computer_infrastructure.git denied to github
 fatal: unable to access 'https://github.com/CianGallagher/computer_infrastructure/': The requested URL returned error: 403
 Error: Process completed with exit code 128.`
 
-This looks like a permission issue, maybe I need to provide my password or something.Read into this, github-actions[bot] in particular.
+This looks like a permission issue, maybe I need to provide my password or something.Read into this, github-actions[bot] in particular. 
+
+The above error calls for an authentication token called a [GITHUB_TOKEN](https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication#using-the-github_token-in-a-workflow). This token is a [github secret](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions), github secrets enable workflows to interact with repos. The syntax per the action docs is as follows 
+`env:
+    GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+`
+I've added this env command along with the token secret into the yml file to see if that can provide the solution to this frustratingly aging error. 
