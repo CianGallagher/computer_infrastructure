@@ -21,13 +21,13 @@ jobs:
               git config --global user.email "ciangall1@gmail.com";
               git config --global user.name "CianGallagher"
   
-        - name: Add file
-          run: git add .
+        # - name: Add file
+        #   run: git add .
   
-        - name: Commit file
-          run: git commit -m "Automated file commit $(date +"%Y%m%d_%H%M%S")"
+        # - name: Commit file
+        #   run: git commit -m "Automated file commit $(date +"%Y%m%d_%H%M%S")"
 
-        - name: Push file
-          run: git push
+        # - name: Push file
+        #   run: git push
         
         
