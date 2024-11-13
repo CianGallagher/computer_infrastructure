@@ -62,4 +62,4 @@ The above error calls for an authentication token called a [GITHUB_TOKEN](https:
 `env:
     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 `
-I've added this env command along with the token secret into the yml file to see if that can provide the solution to this frustratingly aging error. 
+I've added this env command along with the token secret into the yml file to see if that can provide the solution to this frustratingly aging error. By removing the GITHUB_TOKEN secret and adding instead a write permission the tests have been passed!

@@ -6,7 +6,7 @@ on:
   workflow_dispatch:   
 
 permissions:
-  contents: write  # Allow push access to repository contents
+  contents: write  # This is the MVP of the entire file
 
 jobs:
   run-weather-script:
@@ -14,7 +14,7 @@ jobs:
   
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3  # Uses the GITHUB_TOKEN automatically for authentication
+        uses: actions/checkout@v3  
 
       - name: Configure Git Identity
         run: |
@@ -32,3 +32,4 @@ jobs:
 
       - name: Push file
         run: git push
+
