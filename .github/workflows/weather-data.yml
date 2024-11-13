@@ -1,33 +1,34 @@
 name: Weather Data Script
 
 on:
-    schedule:
-      - cron: 0 10 * * *
-    workflow_dispatch:   
+  schedule:
+    - cron: '0 10 * * *'
+  workflow_dispatch:   
+
+permissions:
+  contents: write  # Allow push access to repository contents
 
 jobs:
-    run-weather-script:
-      runs-on: ubuntu-latest
+  run-weather-script:
+    runs-on: ubuntu-latest
   
-      steps:
-        - name: Checkout repository
-          uses: actions/checkout@v3
-  
-        - name: Run weather.sh script
-          run: ./weather.sh
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3  # Uses the GITHUB_TOKEN automatically for authentication
 
-        - name: Git Identity
-          run:
-              git config --global user.email "ciangall1@gmail.com";
-              git config --global user.name "CianGallagher"
-  
-        - name: Add file
-          run: git add .
-  
-        - name: Commit file
-          run: git commit -m "Automated file commit $(date +"%Y%m%d_%H%M%S")"
+      - name: Configure Git Identity
+        run: |
+          git config --global user.email "ciangall1@gmail.com"
+          git config --global user.name "Cian Gallagher"
 
-        - name: Push file
-          run: git push
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
+      - name: Run weather.sh script
+        run: ./weather.sh
+  
+      - name: Add file
+        run: git add .
+
+      - name: Commit file
+        run: git commit -m "Automated file commit $(date +"%Y%m%d_%H%M%S")"
+
+      - name: Push file
+        run: git push
