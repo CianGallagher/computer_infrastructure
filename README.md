@@ -20,46 +20,79 @@ The **Tasks** section provides the groundwork for more advanced project integrat
 
 ## Automation section Notes
 
-weather.sh filepath amended to run locally as the original filepath was initially run in codespaces. [Cron Tutorial Video](https://www.youtube.com/watch?v=v952m13p-b4&t=51s) was a helpful resource for both explaining cron and also initialising your first cron job. Cronjobs are accessible through what is called the [crontab](https://www.techtarget.com/searchdatacenter/definition/crontab) which, for my current purposes is simply a table(tab) of scheduled commands.`crontab -l` lists all current cronjobs on the machine and `crontab -e` enables the editing of said crontab. I got the cronjob working using the `29 15 * * * /home/gally/Documents/repos/computer_infrastructure/weather.sh` as an initial test, the time on the above job was just for testing purposes. 
+This document summarizes the steps taken to automate weather data collection and workflow integration, along with key challenges and solutions.
 
-1. Wrote a basic workflow in the weather-data.yml using [Github Docs](https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#workflow_dispatch) & [GitHub Actions Video by goobar](https://www.youtube.com/watch?v=Sb_zLeHEVqQ&t=115s) as an aid, and triggered the workflow manually from github actions tab but it failed with the error code `Process completed with exit code 127.`
+---
 
-2/3/4/5. I added cron and schedule syntax [crontab guru](https://crontab.guru/) to the yaml to see if that helps, the cron is due to run in 3 mins but in the meantime I manually triggered the job after pushing the update and received the same error as above. Nothing happened at the scheduled cron of 2pm 04.11. Great resource for cron in github actions [Techielass cron expressions](https://youtu.be/kh7piyS2XeE?t=186). 
-Implemented some changes using the resources above and got a lovely green tick on the task! unfortunately I included both checkout in the yml file to clone the REPO and amended the script in the same commit so not quite sure yet which was the issue if not both.
+## 1. Setting Up the Cron Job
 
-6. Need to edit the workflow to enable the commit and push of new weather JSONs back to the Repo. This will be written into the yaml file most likely. Scouring the [GitHub Actions documentation](https://docs.github.com/en/actions) but still not sure where to even start implementing `Commit and Push Changes Back to the Repository Finally, configure the workflow to commit the new weather data and push those changes back to your repository.`
-Added `git add .` and `git commit -m` to yml file. After pushing this change I ran the github action and got an error as follows:
+- Modified the `weather.sh` script to run locally instead of using Codespaces.
+- Found [this tutorial](https://www.youtube.com/watch?v=v952m13p-b4&t=51s) helpful for understanding cron jobs and creating my first one.
+- Cron jobs are managed via the `crontab` command:
+  - `crontab -l`: Lists all active cron jobs.
+  - `crontab -e`: Opens the crontab for editing.
+- Created an initial test job with the following entry:
+  ```plaintext
+  29 15 * * * /home/gally/Documents/repos/computer_infrastructure/weather.sh
+  ```
+  *(This time was for testing only.)*
 
-`Run git commit -m "Automated file commit $(date +"%Y%m%d_%H%M%S")"
-Author identity unknown
+---
 
-*** Please tell me who you are.
+## 2. Writing the GitHub Workflow
 
-Run
+- Developed a basic workflow in `weather-data.yml` using:
+  - [GitHub Docs](https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#workflow_dispatch)
+  - [GitHub Actions Tutorial by goobar](https://www.youtube.com/watch?v=Sb_zLeHEVqQ&t=115s)
+- Initially, manually triggering the workflow returned this error:
+  ```plaintext
+  Process completed with exit code 127.
+  ```
 
-  git config --global user.email "you@example.com"
-  git config --global user.name "Your Name"
+---
 
-to set your account's default identity.
-Omit --global to set the identity only in this repository.
+## 3. Debugging the Workflow
 
-fatal: empty ident name (for <runner@fv-az532-828.yhfsaq54z0vebhuvdla3z0z0vh.cx.internal.cloudapp.net>) not allowed
-Error: Process completed with exit code 128.`
+- Used [Crontab Guru](https://crontab.guru/) to refine the cron syntax in the YAML file.
+- Pushed updates but faced the same error. Scheduled runs also failed at the specified time.
+- [Techielass cron expressions tutorial](https://youtu.be/kh7piyS2XeE?t=186) provided additional insights.
+- Ultimately succeeded with a green tick after including both `checkout` and script changes. However, I couldn't determine whether one or both adjustments resolved the issue.
 
-This error makes a lot of sense, I took for granted that add,commit,push would work as normal because when I do it locally github already knows who I am due to me configuring previously. The error then offers me a solution which would probably work for me but I'll have to find a different approach if this repo is to be useful for others, maybe there's a generic identity I can use when running 
-`git config --global user.email "you@example.com"
-git config --global user.name "Your Name"`
-git identity configured, `git add .` & `git commit -m` are written into the yml file push to repo and passed the checks after manually running the github action. Tried to implement a git push but got the following error message :
+---
 
-`Run git push
-remote: Permission to CianGallagher/computer_infrastructure.git denied to github-actions[bot].
-fatal: unable to access 'https://github.com/CianGallagher/computer_infrastructure/': The requested URL returned error: 403
-Error: Process completed with exit code 128.`
+## 4. Adding Data Commit and Push to the Repository
 
-This looks like a permission issue, maybe I need to provide my password or something.Read into this, github-actions[bot] in particular. 
+- Focused on enabling the workflow to commit and push weather JSON files to the repository.
+- Added `git add .` and `git commit -m` commands to the workflow YAML. Encountered the following error:
+  ```plaintext
+  Author identity unknown
 
-The above error calls for an authentication token called a [GITHUB_TOKEN](https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication#using-the-github_token-in-a-workflow). This token is a [github secret](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions), github secrets enable workflows to interact with repos. The syntax per the action docs is as follows 
-`env:
+  Run
+    git config --global user.email "you@example.com"
+    git config --global user.name "Your Name"
+  ```
+- This occurred because the GitHub Actions runner lacked a configured git identity. While I could solve it locally using the commands provided, I needed a more generic solution.
+
+---
+
+## 5. Solving Git Push Permissions
+
+- After configuring the git identity, I successfully added and committed changes but encountered a new error when trying to push:
+  ```plaintext
+  remote: Permission to CianGallagher/computer_infrastructure.git denied to github-actions[bot].
+  ```
+- Researched and discovered that a [GITHUB_TOKEN](https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication#using-the-github_token-in-a-workflow) was needed.
+- Added the following to the workflow YAML:
+  ```yaml
+  env:
     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-`
-I've added this env command along with the token secret into the yml file to see if that can provide the solution to this frustratingly aging error. By removing the GITHUB_TOKEN secret and adding instead a write permission the tests have been passed!
+  ```
+- Removed the `GITHUB_TOKEN` secret and instead granted write permissions to the workflow. This resolved the issue, and all tests passed successfully!
+
+---
+
+## 6. Final Solution
+
+By carefully debugging and leveraging resources, I successfully automated the workflow to schedule, execute, and push weather data updates to the repository.
+
+This journey highlights the importance of persistence and leveraging available documentation and tutorials for solving automation challenges.
